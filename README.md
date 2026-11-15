@@ -11,7 +11,7 @@ The project turns heterogeneous source records into reviewable JSON recommendati
 - confidence, evidence, rationale and information gaps;
 - explicit routing to automatic acceptance, human review or rejection.
 
-> Status: capstone prototype in active development. The included records are synthetic examples that resemble public-source metadata; they are not exported research datasets.
+> Status: capstone prototype in active development. The repository includes synthetic fixtures for reproducible testing and an NCBI GEO adapter for approved-source discovery.
 
 ## Why this design
 
@@ -73,6 +73,8 @@ uvicorn dataset_agent.api:app --reload
 
 Open `http://127.0.0.1:8000/docs` for the Swagger interface.
 
+Open `http://127.0.0.1:8000/review` for the human review queue and quality dashboard. API evaluations are persisted to SQLite with an append-only audit trail.
+
 ### Docker
 
 ```bash
@@ -116,6 +118,9 @@ dataset_agent/
   recommend.py       # confidence and review routing
   pipeline.py        # orchestration
   api.py             # FastAPI endpoint
+  adapters/geo.py    # NCBI GEO E-utilities adapter
+  review_store.py    # SQLite review queue and audit log
+  versioning.py      # before/after metadata change sets
 data/
   sample_datasets.json
 tests/
@@ -124,14 +129,14 @@ tests/
 
 ## Roadmap
 
-- [ ] Live adapters for NCBI GEO, dbGaP and other approved sources
+- [x] Live NCBI GEO adapter with injectable transport for deterministic tests
 - [ ] Scheduled monitoring and metadata change events
-- [ ] Reviewer queue with approve/reject/needs-information actions
-- [ ] Version lineage and before/after metadata diffs
+- [x] Reviewer queue with approve/reject/needs-information actions
+- [x] Version lineage and before/after metadata diffs
 - [ ] JSON Schema export and contract validation
-- [ ] Evaluation dashboard: coverage, duplicate rate, confidence calibration and review agreement
+- [x] Evaluation dashboard: coverage, duplicate rate, confidence and decision distribution
 - [ ] Optional semantic similarity model behind an auditable adapter
-- [ ] SQLite persistence and immutable audit log
+- [x] SQLite persistence and append-only audit log
 
 ## Responsible use
 
