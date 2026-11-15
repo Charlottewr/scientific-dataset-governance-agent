@@ -1,0 +1,57 @@
+[
+  {
+    "source": "NCBI GEO",
+    "source_id": "GSE-DEMO-001",
+    "title": "Single-cell RNA sequencing of lung tumor microenvironment",
+    "description": "Gene expression profiles from tumor and adjacent normal tissue.",
+    "landing_page": "https://www.ncbi.nlm.nih.gov/geo/",
+    "version": "1.0",
+    "formats": ["h5ad", "csv"],
+    "access_text": "Public download",
+    "keywords": ["cancer", "single-cell RNA", "lung"],
+    "metadata": {
+      "domain": "oncology",
+      "phenotype": ["lung cancer"],
+      "omics_layer": ["transcriptomics"],
+      "license": "Public domain metadata; dataset terms apply",
+      "organism": "Homo sapiens",
+      "sample_size": 48,
+      "keywords": ["cancer", "single-cell RNA"]
+    }
+  },
+  {
+    "source": "NCBI GEO",
+    "source_id": "GSE-DEMO-001-V2",
+    "title": "Single-cell RNA sequencing of lung tumor microenvironment version 2",
+    "description": "Updated release of gene expression profiles from tumor and adjacent normal tissue.",
+    "landing_page": "https://www.ncbi.nlm.nih.gov/geo/",
+    "version": "2.0",
+    "formats": ["H5AD", "CSV"],
+    "access_text": "Public download",
+    "keywords": ["cancer", "single-cell RNA", "lung"],
+    "metadata": {
+      "phenotype": ["lung cancer"],
+      "organism": "Homo sapiens",
+      "sample_size": 48,
+      "keywords": ["cancer", "single-cell RNA"]
+    }
+  },
+  {
+    "source": "NIH dbGaP",
+    "source_id": "phs-DEMO-002",
+    "title": "Whole genome sequencing study of cardiovascular risk",
+    "description": "Controlled-access genomic data for cardiovascular phenotype research.",
+    "landing_page": "https://www.ncbi.nlm.nih.gov/gap/",
+    "formats": ["vcf", "bam"],
+    "access_text": "Controlled access; application required",
+    "keywords": ["heart", "genome", "cardiovascular"],
+    "metadata": {
+      "phenotype": ["cardiovascular risk"],
+      "omics_layer": ["genomics"],
+      "organism": "Homo sapiens",
+      "sample_size": "2,400",
+      "keywords": ["heart", "genome"]
+    }
+  }
+]
+
