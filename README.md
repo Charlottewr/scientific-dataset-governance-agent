@@ -10,6 +10,7 @@ The project turns heterogeneous source records into reviewable JSON recommendati
 - explainable GenEngine compatibility checks;
 - confidence, evidence, rationale and information gaps;
 - explicit routing to automatic acceptance, human review or rejection.
+- an auditable RAG retrieval baseline with labelled Recall@K and MRR evaluation.
 
 > Status: capstone prototype in active development. The repository includes synthetic fixtures for reproducible testing and an NCBI GEO adapter for approved-source discovery.
 
@@ -62,6 +63,29 @@ python -m dataset_agent.cli \
 
 ```bash
 python -m unittest discover -s tests -v
+```
+
+### RAG retrieval evaluation
+
+`dataset_agent.retrieval` provides dependency-free text chunking, TF-IDF evidence
+retrieval and labelled evaluation. The baseline is intentionally transparent: every
+retrieved document has a reproducible cosine score, while `evaluate_retrieval`
+reports Recall@K and mean reciprocal rank (MRR). This makes retrieval changes easy
+to compare before a heavier embedding model is introduced.
+
+```python
+from dataset_agent.retrieval import TfidfRetriever, evaluate_retrieval
+
+retriever = TfidfRetriever({
+    "geo": "GEO RNA-seq expression metadata",
+    "wgs": "controlled access whole genome sequencing VCF",
+})
+metrics = evaluate_retrieval(
+    retriever,
+    [{"query": "RNA-seq GEO", "expected_document_id": "geo"}],
+    top_k=2,
+)
+print(metrics)  # {'cases': 1, 'top_k': 2, 'recall_at_k': 1.0, 'mrr': 1.0}
 ```
 
 ### API
@@ -121,6 +145,7 @@ dataset_agent/
   adapters/geo.py    # NCBI GEO E-utilities adapter
   review_store.py    # SQLite review queue and audit log
   versioning.py      # before/after metadata change sets
+  retrieval.py       # chunking, TF-IDF retrieval and Recall@K/MRR evaluation
 data/
   sample_datasets.json
 tests/
@@ -136,6 +161,7 @@ tests/
 - [ ] JSON Schema export and contract validation
 - [x] Evaluation dashboard: coverage, duplicate rate, confidence and decision distribution
 - [ ] Optional semantic similarity model behind an auditable adapter
+- [x] Auditable TF-IDF retrieval baseline with labelled Recall@K and MRR metrics
 - [x] SQLite persistence and append-only audit log
 
 ## Responsible use
